@@ -9,8 +9,8 @@ let
   WIDTH = 1920,
   HEIGHT = 1080,
 
-  D0, // HTML canvas where all SVG images will be rendered. Used as a TextureAtlas (or SpriteSheet) by the webGL renderer.
-  D2, // HTML canvas where grassy lines and blood splatters will be rendered. Visible in game.
+  TEXTURE_ATLAS, // HTML canvas where all SVG images will be rendered. Used as a TextureAtlas (or SpriteSheet) by the webGL renderer.
+  FIELD_OF_BATTLE, // HTML canvas where grassy lines and blood splatters will be rendered. Visible in game.
   fieldOfBattleContext, // HTML canvas context where grassy lines and blood splatters will be rendered.
 
   // Keyboard variables.
@@ -19,7 +19,7 @@ let
   upHeld, // Movement flags
   downHeld,
   controlIndex, // Index of control key to be changed.
-  controlLabel, // D4 element to change when new control is set.
+  controlLabel, // UI element to change when new control is set.
   CONTROL_UP = 0, // Indexes into array of keyboard controls.
   CONTROL_DOWN = 1,
 
@@ -495,7 +495,7 @@ fx_reset = () => {
   showElement = (el, state) => el.style.display = (state) ? 'block' : 'none',
 
   // Update the background gradient, changing the y coordinate where the gradient changes from sky to ground.
-  updateBackgroundGradient = (y) => D1.style.background = `linear-gradient(#1af 0%, #fff ${y}px, #6e5 ${y}px, #5c6 100%)`,
+  updateBackgroundGradient = (y) => BACKGROUND.style.background = `linear-gradient(#1af 0%, #fff ${y}px, #6e5 ${y}px, #5c6 100%)`,
 
   // Clear background of blood stains and draw faux grassy lines if required.
   resetFieldOfBattle = (drawGrass = 0) => {
@@ -516,7 +516,7 @@ fx_reset = () => {
   injectHEadingStyle = (headingSize, fontSize, lineHeight) => injectHTML(D9, `h${headingSize}{font-size:${fontSize}px;line-height:${lineHeight}px;}`),
 
   // Set the health bar height readout to the given height.
-  updateHealthBar = () => D6.style.height = playerHealth + 'px',
+  updateHealthBar = () => HEALTH.style.height = playerHealth + 'px',
 
   // Set the given HTML elements `onclick` handler to play the button click sound then call the given function.
   setClickHandler = (el, handler) => {
@@ -526,8 +526,8 @@ fx_reset = () => {
     };
   },
 
-  // Vertically scroll the `D7` div to the given y coordinate.
-  scrollToMenu = (y) => D7.style.top = y + 'px',
+  // Vertically scroll the `MENUS` div to the given y coordinate.
+  scrollToMenu = (y) => MENUS.style.top = y + 'px',
 
   // TODO: Fabricate a comment for this janky ass code.
   getRangeValue = (actor, range = .25, value = 3) => ((animCounter + actor.randomness) % range > range / 2 ? 0 : value),
@@ -604,17 +604,17 @@ fx_reset = () => {
   initiateWaitingForKeyPress = (index, label) => {
     controlIndex = index;
     controlLabel = label;
-    D5.style.zIndex = 9;
+    KEYPRESS.style.zIndex = 9;
     waitingForKey = 1;
   },
 
   // Set the audio label according to the setting in `OPTIONS`.
-  updateAudioLabel = () => setHTML(L1, (OPTIONS.audio) ? 'ON' : 'OFF'),
+  updateAudioLabel = () => setHTML(TOGGLE_AUDIO_LABEL, (OPTIONS.audio) ? 'ON' : 'OFF'),
 
   // Award the given number of points to the player and handle cases where best score was reached in this game.
   awardPoints = (n) => {
     playerScore += n;
-    setHTML(L5, playerScore.toLocaleString());
+    setHTML(SCORE_LABEL, playerScore.toLocaleString());
     if (!gotBestScore) {
       if (playerScore > OPTIONS.best) {
         gotBestScore = 1;
@@ -822,12 +822,12 @@ fx_reset = () => {
       playerHealth = 0;
 
       fx_play(FX_GAMEOVER);
-      showElement(D8, 1);
+      showElement(GAMEOVER, 1);
       gameMode = GAME_MODE_GAMEOVER;
       keysEnabled = 0;
       if (gotBestScore) {
         OPTIONS.best = playerScore;
-        setHTML(L4, OPTIONS.best.toLocaleString());
+        setHTML(BEST_SCORE_LABEL, OPTIONS.best.toLocaleString());
         saveOptions();
       }
     }
@@ -1111,7 +1111,7 @@ fx_reset = () => {
 
   overlayImages,
 
-  svgString, // String used to generate SVG images, before they are mime encoded and rendered to the D0 canvas.
+  svgString, // String used to generate SVG images, before they are mime encoded and rendered to the TEXTURE_ATLAS canvas.
   tempString,
 
   SVG_ID = 0, // Used to generate unique filter identities.
@@ -1153,7 +1153,7 @@ fx_reset = () => {
       let 
       w = image.width,
       h = image.height;
-      D0.getContext('2d').drawImage(image, x, y, w * scale, h * scale); // draw image to the textureAtlas.
+      TEXTURE_ATLAS.getContext('2d').drawImage(image, x, y, w * scale, h * scale); // draw image to the textureAtlas.
       textureRegions[name] = { x, y, w: w * scale, h: h * scale }; // Create new texture region.
 
       if (allAssetsGenerated) {
@@ -1162,7 +1162,7 @@ fx_reset = () => {
         // Do stuff once ALL assets have been generated
         // 
 
-        gl2_loadTexture(D0); // Initialize webGL texture.
+        gl2_loadTexture(TEXTURE_ATLAS); // Initialize webGL texture.
 
         // These objects correspond to a given actors `type`. They are only applicable to mongols and the samurai, not projectiles, particles, etc.
         overlayImages = [
@@ -1257,7 +1257,7 @@ fx_reset = () => {
         ];
 
         // Set 1x1 white pixel for drawing rectangles.
-        // let cxt = D0.getContext('2d');
+        // let cxt = TEXTURE_ATLAS.getContext('2d');
         // cxt.fillStyle = '#fff';
         // cxt.fillRect(0, 0, 1, 1);
       }
@@ -1374,12 +1374,12 @@ W.onload = e => {
   (!OPTIONS) ? resetOptions() : OPTIONS = JSON.parse(OPTIONS);
 
   // Set HTML elements according to options.
-  setHTML(L2, OPTIONS.controls[CONTROL_UP].code);
-  setHTML(L3, OPTIONS.controls[CONTROL_DOWN].code);
-  setHTML(L4, OPTIONS.best.toLocaleString());
-  setHTML(L1, (OPTIONS.audio) ? 'ON' : 'OFF');
+  setHTML(MOVE_UP_LABEL, OPTIONS.controls[CONTROL_UP].code);
+  setHTML(MOVE_DOWN_LABEL, OPTIONS.controls[CONTROL_DOWN].code);
+  setHTML(BEST_SCORE_LABEL, OPTIONS.best.toLocaleString());
+  setHTML(TOGGLE_AUDIO_LABEL, (OPTIONS.audio) ? 'ON' : 'OFF');
 
-  scrollToMenu(-HEIGHT); // Scroll `D7` div to show main menu.
+  scrollToMenu(-HEIGHT); // Scroll `MENUS` div to show main menu.
 
   // Inject heading styles into document > head > style element.
   injectHEadingStyle(1, 240, 240); // headingSize, fontSize, lineHeight.
@@ -1387,25 +1387,25 @@ W.onload = e => {
   injectHEadingStyle(3, 80, 80);
   injectHEadingStyle(4, 150, 150);
 
-  injectHTML(D4, SVG_HEAD(0, 0) + newBloodyFilter(0, randomInt(0, 1e9)) + '</svg>'); // Inject bloody filter into `D4` div (used to make all D4 elements look like they are dripping blood).
+  injectHTML(UI, SVG_HEAD(0, 0) + newBloodyFilter(0, randomInt(0, 1e9)) + '</svg>'); // Inject bloody filter into `UI` div (used to make all UI elements look like they are dripping blood).
 
   // Create canvasses.
-  newCanvas('D2', WIDTH, HEIGHT); // id, width, height.
-  newCanvas('D3', WIDTH, HEIGHT);
-  newCanvas('D0', 1024, 2048); // Atlas.
+  newCanvas('FIELD_OF_BATTLE', WIDTH, HEIGHT); // id, width, height.
+  newCanvas('FOREGROUND', WIDTH, HEIGHT);
+  newCanvas('TEXTURE_ATLAS', 1024, 2048); // Atlas.
 
-  D2 = getByID('D2'); // For some reason, these two need to be "fetched", the rest (D1, D3, etc) can just be poked directly.
-  D0 = getByID('D0');
+  FIELD_OF_BATTLE = getByID('FIELD_OF_BATTLE'); // For some reason, these two need to be "fetched", the rest (BACKGROUND, FOREGROUND, etc) can just be poked directly.
+  TEXTURE_ATLAS = getByID('TEXTURE_ATLAS');
 
-  fieldOfBattleContext = D2.getContext('2d'); // Get context for rendering grassy lines and blood splatters.
+  fieldOfBattleContext = FIELD_OF_BATTLE.getContext('2d'); // Get context for rendering grassy lines and blood splatters.
   fieldOfBattleContext.globalAlpha = .6;
   fieldOfBattleContext.fillStyle = '#0002'; // Near transparent black color that represent grassy lines.
 
   updateBackgroundGradient(918); // Set background gradient for menus.
 
   // Generate sound effects.
-  for (let i = 0; i < 4; i++) fx_add(.04, [261.6, 293.6, 329.6, 391.9][i], 0, .07, .49, 0, .62, 0, 0, 0, 0, .05, .1, 0, 0, 0, .33, .11, .04); // Generate 4 musical notes (C2, D2, E2, and G2) for the uber random music player.
-  // for (let i = 0; i < 4; i++) fx_add([.2,[130.8, 146.8, 164.8, 195.9][i],0,.21,.14,0,1.32,0,0,0,0,0,0,0,0,.01,.22,.12,0]); // Generate 4 musical notes (C1, D1, E1, and G1) for the uber random music player.
+  for (let i = 0; i < 4; i++) fx_add(.04, [261.6, 293.6, 329.6, 391.9][i], 0, .07, .49, 0, .62, 0, 0, 0, 0, .05, .1, 0, 0, 0, .33, .11, .04); // Generate 4 musical notes (C2, FIELD_OF_BATTLE, E2, and G2) for the uber random music player.
+  // for (let i = 0; i < 4; i++) fx_add([.2,[130.8, 146.8, 164.8, 195.9][i],0,.21,.14,0,1.32,0,0,0,0,0,0,0,0,.01,.22,.12,0]); // Generate 4 musical notes (C1, BACKGROUND, E1, and G1) for the uber random music player.
   // for (let i = 0; i < 4; i++) fx_add([.2,[65.406, 73.416, 82.406, 97.998][i],0,.21,.14,0,1.32,0,0,0,0,0,0,0,0,.01,.22,.12,0]); // Generate 4 musical notes (C, D, E, and G) for the uber random music player.
 
   fx_add(.1, 633,.02,.01,.01,0,.99,79,0,633,.02,.06,0,63,.1,.05,.58,.02,.99); // FX_CLICK 4
@@ -1668,7 +1668,7 @@ W.onload = e => {
   // #region - Install button click handlers.
 
   // The play button was pressed.. let the bloodshed begin!!!
-  setClickHandler(B5, e => {
+  setClickHandler(PLAY_BUTTON, e => {
 
     // Reset everything.
 
@@ -1709,7 +1709,7 @@ W.onload = e => {
     // Reset score.
     gotBestScore = 0;
     playerScore = 0;
-    setHTML(L5, 0);
+    setHTML(SCORE_LABEL, 0);
 
     // Reset player health.
     playerHealth = 1048;
@@ -1719,8 +1719,8 @@ W.onload = e => {
 
     player.y = HEIGHT / 2; // Set player position.
 
-    // Initialize UI for game scene
-    scrollToMenu(-HEIGHT * 2); // Scroll `D7` div to display the ingame HUD.
+    // Initialize BACKGROUND for game scene
+    scrollToMenu(-HEIGHT * 2); // Scroll `MENUS` div to display the ingame HUD.
     updateBackgroundGradient(256); // Set background gradient for game scene.
     // showCursor(0);
     resetFieldOfBattle(1);
@@ -1730,18 +1730,18 @@ W.onload = e => {
   });
 
   // Show the options menu.
-  // setClickHandler(B6, e => {
+  // setClickHandler(OPTIONS_BUTTON, e => {
   //    with(new AudioContext)with(createScriptProcessor(k=8192,t=0,1))connect(destination),onaudioprocess=x=>{
   //     for (i = 0; i < k; t += 2e-5) x.outputBuffer.getChannelData(0)[i++]='%,IW7:A'.charCodeAt(i%7)*t%.1*(1-t/(Math.tan(i%7)+9)%1)}
 
   //   scrollToMenu(0)});
-  setClickHandler(B6, e => scrollToMenu(0));
+  setClickHandler(OPTIONS_BUTTON, e => scrollToMenu(0));
 
   // "Okay" button clicked on game over menu.
-  setClickHandler(B7, e => {
+  setClickHandler(CONFIRM_GAMEOVER_BUTTON, e => {
     gameMode = GAME_MODE_MENUS; // Set game mode.
     keysEnabled = 0; // Disable key presses.
-    showElement(D8, 0); // Hide game over menu.
+    showElement(GAMEOVER, 0); // Hide game over menu.
     resetFieldOfBattle();
     updateBackgroundGradient(918); // Set background gradient for menus.
 
@@ -1749,29 +1749,29 @@ W.onload = e => {
   });
 
   // Toggle audio.
-  setClickHandler(B1, e => {
+  setClickHandler(TOGGLE_AUDIO_BUTTON, e => {
     OPTIONS.audio = !OPTIONS.audio;
     updateAudioLabel();
     saveOptions();
   });
 
   // Player wants to change the control for up.
-  setClickHandler(B2, e => initiateWaitingForKeyPress(CONTROL_UP, L2));
+  setClickHandler(MOVE_UP_BUTTON, e => initiateWaitingForKeyPress(CONTROL_UP, MOVE_UP_LABEL));
 
   // Player wants to change the control for down.
-  setClickHandler(B3, e => initiateWaitingForKeyPress(CONTROL_DOWN, L3));
+  setClickHandler(MOVE_DOWN_BUTTON, e => initiateWaitingForKeyPress(CONTROL_DOWN, MOVE_DOWN_LABEL));
 
   // Return to main menu
-  setClickHandler(B4, e => scrollToMenu(-HEIGHT));
+  setClickHandler(CONFIRM_OPTIONS_BUTTON, e => scrollToMenu(-HEIGHT));
 
   // #endregion
 
-  gl2_setup(D3); // Initialize webGL renderer.
+  gl2_setup(FOREGROUND); // Initialize webGL renderer.
 
   // #region - Install other DOM event handlers
 
   // Window onclick event handler. Manage clicking on powerups.
-  D4.onclick = e => {
+  UI.onclick = e => {
 
     if (gameMode === GAME_MODE_PLAYING) {
 
@@ -1836,7 +1836,7 @@ W.onload = e => {
       OPTIONS.controls[controlIndex].code = e.code;
       OPTIONS.controls[controlIndex].key = k;
       waitingForKey = 0; // No longer waiting for this event.
-      D5.style.zIndex = -1;
+      KEYPRESS.style.zIndex = -1;
       saveOptions();
 
     } else if (keysEnabled) {
@@ -1851,14 +1851,14 @@ W.onload = e => {
     let innerWidth = W.innerWidth;
     scaleAndCenter = (el) => {
       el.style.transform = `scale(${min(innerWidth / WIDTH, W.innerHeight / HEIGHT)})`; // Scale the canvas
-      el.style.left = (~~(innerWidth - D1.getBoundingClientRect().width) / 2) + 'px'; // Center the canvas on the x-axis
-      // el.style.left = (floor(innerWidth - D1.getBoundingClientRect().width) / 2) + 'px'; // Center the canvas on the x-axis
+      el.style.left = (~~(innerWidth - BACKGROUND.getBoundingClientRect().width) / 2) + 'px'; // Center the canvas on the x-axis
+      // el.style.left = (floor(innerWidth - BACKGROUND.getBoundingClientRect().width) / 2) + 'px'; // Center the canvas on the x-axis
     };
-    scaleAndCenter(D1);
-    scaleAndCenter(D2);
-    scaleAndCenter(D3);
-    scaleAndCenter(D4);
-    scaleAndCenter(D5);
+    scaleAndCenter(BACKGROUND);
+    scaleAndCenter(FIELD_OF_BATTLE);
+    scaleAndCenter(FOREGROUND);
+    scaleAndCenter(UI);
+    scaleAndCenter(KEYPRESS);
   }
   W.onresize(); // Force initial resize.
   // #endregion
@@ -2214,7 +2214,7 @@ onEnterFrame = (t) => {
       fx_play(FX_DRUM); // Play drum sound every second.
     }
 
-    // Let's play some music!!!! (random notes from C2, D2, E2, and G2). The notes are set according to which type of mongol just spawned (0-3).
+    // Let's play some music!!!! (random notes from C2, FIELD_OF_BATTLE, E2, and G2). The notes are set according to which type of mongol just spawned (0-3).
     if ((metronome -= DT) <= 0) { // Countdown till next random musical note plays.
       fx_play(musicalNote); // Play random musical note.
       fx_play(FX_HIHAT); // Play hihat sound ever 1/4 second.
@@ -2361,7 +2361,7 @@ onEnterFrame = (t) => {
 
         // Draw a randomized blood splatter on the background.
         texture = getTextureRegion(BLOOD_NAME + randomInt(0, 9));
-        fieldOfBattleContext.drawImage(D0, texture.x, texture.y, texture.w, texture.h, mongol.x - 20, mongol.y, texture.w * 1.5, texture.h / randomInt(2, 6));
+        fieldOfBattleContext.drawImage(TEXTURE_ATLAS, texture.x, texture.y, texture.w, texture.h, mongol.x - 20, mongol.y, texture.w * 1.5, texture.h / randomInt(2, 6));
 
         awardPoints([100, 250, 500, 1000, 50][mongol.type]); // Award points.
 
