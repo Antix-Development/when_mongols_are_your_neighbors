@@ -48,11 +48,11 @@ This year I wanted to use high resolution graphics again which meant using SVG i
 
 For example take the SVG head element, which all SVG images have. The following function returns a valid SVG head. You just pass it the dimensions of the image..
 
->```SVG_HEAD = (w, h) => `<svg width="${w}" height="${h}" version="1.1" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;```
+```SVG_HEAD = (w, h) => `<svg width="${w}" height="${h}" version="1.1" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;```
 
 Now consider the next function which can create most types of SVG rectangles you might ever need. It is also worth mentioning that by using the `rx` and `ry` parameters, the rectangle can be used to represent an ellipse as well!
 
->```SVG_RECT = (x, y, w, h, fill, rx = 0, ry = rx, strokeWidth = 0, stroke = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${(SVG_FILTER_OR_FILL(fill))} rx="${rx}" ry="${ry}" stroke-width="${strokeWidth}" stroke="#${stroke}"/>`;```
+```SVG_RECT = (x, y, w, h, fill, rx = 0, ry = rx, strokeWidth = 0, stroke = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${(SVG_FILTER_OR_FILL(fill))} rx="${rx}" ry="${ry}" stroke-width="${strokeWidth}" stroke="#${stroke}"/>`;```
 
 Using these functions (and a few more) I was able to generate all of my SVG images in code. The strings produced were URI encoded and then drawn to an offscreen HTML Canvas which was used as a texture atlas (sprite-sheet) by the game engine. Here is that atlas...
 
