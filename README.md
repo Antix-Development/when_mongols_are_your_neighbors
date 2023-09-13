@@ -6,6 +6,6 @@
 
 This game is my entry for the 2023 JS13K competition, a month long event where you attempt to shoe-horn an entire game (code and assets) into a 13K zip file. The game also should follow a theme, which for 2023 was "13th Century".
 
-Currently I'm in the process of tidying up the source code and will upload it as soon as I am able to.
+Source code is uploaded but quite messy :(
 
 <br>
