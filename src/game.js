@@ -2566,7 +2566,6 @@ onEnterFrame = (t) => {
       }
     }
 
-
   }
 
   gl2_drawEverything();
