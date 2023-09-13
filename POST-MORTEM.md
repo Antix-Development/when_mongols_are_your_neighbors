@@ -192,7 +192,7 @@ I created 6 Mongol enemies for the player to defeat, but only ended up using 5 o
 
 I was fairly happy with how the enemy units ended up but still feel that the rammer could have had some special kind of attack.
 
-I was also very pleased with the intractions between Mongols because using circle vs circle collision made them flow nicely, with faster moving Mongols puching their way past slower moving ones.
+I was also very pleased with the interactions between Mongols because using circle vs circle collision made them flow nicely, with faster moving Mongols puching their way past slower moving ones.
 
 <br>
 
