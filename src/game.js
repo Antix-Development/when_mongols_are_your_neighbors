@@ -1404,7 +1404,7 @@ W.onload = e => {
   updateBackgroundGradient(918); // Set background gradient for menus.
 
   // Generate sound effects.
-  for (let i = 0; i < 4; i++) fx_add(.04, [261.6, 293.6, 329.6, 391.9][i], 0, .07, .49, 0, .62, 0, 0, 0, 0, .05, .1, 0, 0, 0, .33, .11, .04); // Generate 4 musical notes (C2, FIELD_OF_BATTLE, E2, and G2) for the uber random music player.
+  for (let i = 0; i < 4; i++) fx_add(.04, [261.6, 293.6, 329.6, 391.9][i], 0, .07, .49, 0, .62, 0, 0, 0, 0, .05, .1, 0, 0, 0, .33, .11, .04); // Generate 4 musical notes (C2, D2, E2, and G2) for the uber random music player.
   // for (let i = 0; i < 4; i++) fx_add([.2,[130.8, 146.8, 164.8, 195.9][i],0,.21,.14,0,1.32,0,0,0,0,0,0,0,0,.01,.22,.12,0]); // Generate 4 musical notes (C1, BACKGROUND, E1, and G1) for the uber random music player.
   // for (let i = 0; i < 4; i++) fx_add([.2,[65.406, 73.416, 82.406, 97.998][i],0,.21,.14,0,1.32,0,0,0,0,0,0,0,0,.01,.22,.12,0]); // Generate 4 musical notes (C, D, E, and G) for the uber random music player.
 
