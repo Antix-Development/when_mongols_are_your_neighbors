@@ -66,7 +66,7 @@ I dunno what you think of this code generated atlas, but I'm very pleased at how
 
 I learned a great deal about generating SVG images this year and discovered the magic of the SVG &lt;USE&gt; tag, which basically lets you reuse (or stamp) another shape over and over. It was used a bit when generating the bushes in the atlas above, and given more time I'd rewrite a lot more code to use this fantastic feature.
 
-One of my early prototypes was a game called DeathMatch Dudes, a 2D Unreal Tournament 99 inspired deathMatch game using super blocky characters very similar to the ones from [GDevelop 2D Shooter Platform Example](https://wishforge.itch.io/gdevelop-2d-shooter-platformer-example), recreated painstakengly in InkScape and hand optimized in NotePad++.
+One of my early prototypes was a game called DeathMatch Dudes, a 2D Unreal Tournament 99 inspired deathMatch game using super blocky characters very similar to the ones from [GDevelop 2D Shooter Platform Example](https://wishforge.itch.io/gdevelop-2d-shooter-platformer-example), recreated painstakengly in InkScape and hand optimized in NotePad++. Once I learned there was no multiplayer category this year, I adopted the style for this game.
 
 Now about that abundance of blood...
 
