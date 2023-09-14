@@ -38,7 +38,9 @@ After a bit of thinking I came up with the following requirements for the game:
 
 - Ingame music. 
 
-- Oceans of blood!
+- Persistent options and highscore. 
+
+- Oceans of blood! 
 
 <br>
 
@@ -60,7 +62,7 @@ Using these functions (and a few more) I was able to generate all of my SVG imag
 
 I dunno what you think of this code generated atlas, but I'm very pleased at how it turned out and I'll probably use a more refined version next year too.
 
-I learned a great deal about generating SVG images this year and discovered the magic of the SVG USE tag, which basically lets you reuse (or stamp) another shape over and over. It was used a bit when generating the bushes in the atlas above, and given more time I'd rewrite a lot more code to use this fantastic feature.
+I learned a great deal about generating SVG images this year and discovered the magic of the SVG &lt;USE&gt; tag, which basically lets you reuse (or stamp) another shape over and over. It was used a bit when generating the bushes in the atlas above, and given more time I'd rewrite a lot more code to use this fantastic feature.
 
 One of my early prototypes was a game called DeathMatch Dudes, a 2D Unreal Tournament 99 inspired deathMatch game using super blocky characters very similar to the ones from [GDevelop 2D Shooter Platform Example](https://wishforge.itch.io/gdevelop-2d-shooter-platformer-example), recreated painstakengly in InkScape and hand optimized in NotePad++.
 
@@ -259,6 +261,43 @@ I ended up with 7 powerups that can be clicked on by the player. They are as fol
 </table> 
 
 The powerup system worked pretty well and it adds more confusion and total randomness to the game.. just like real warfare I suppose.
+
+<br>
+
+## User Interface 
+
+ <table>
+
+  <tr>
+    <th>Main</th>
+    <th>Options</th>
+    <th>Ingame</th>
+    <th>Gameover</th>
+  </tr>
+
+  <tr>
+    <td><img src="src/img/post-mortem/mainmenu.png"></td>
+    <td><img src="src/img/post-mortem/optionsmenu.png"></td>
+    <td><img src="src/img/post-mortem/ingamemenu.png"></td>
+    <td><img src="src/img/post-mortem/gameovermenu.png"></td>
+  </tr>
+
+</table> 
+
+My user interface this year turned out to be one giant &lt;div&gt; and I used HTML &lt;h&gt; tags for all interface elements.
+
+- &lt;h1&gt; - Large "MONGOLS" logo.
+- &lt;h4&gt; - Buttons.
+- &lt;h3&gt; - Labels.
+- &lt;h2&gt; - Used for "WHEN YOUR NEGHBORS ARE" text and also the best score text.
+
+For the buttons I just added a 16 pixel wide outline to them when hovered which made them pretty cool as button borders, complete with bloody filter.
+
+I used a liberal amount of &lt;br&gt; tags to provide vertical spacing between interface elements, and when I wanted to show another menu (portion of the whole ui &lt;div&gt;), I just set `style.scrollTop` to the appropriate number.
+
+This cheap and nasty approach worked super well and I think I'll refine it and reuse it again next year.
+
+One thing that I really liked was using a &lt;div&gt; with set dimensions for the players health indicator. As it grew and shrunk, it looked pretty cool as the bloody filter caused it to have a sort of animated appearance.
 
 <br>
 
