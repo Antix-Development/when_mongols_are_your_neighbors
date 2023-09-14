@@ -147,7 +147,7 @@ After a load of searching I found some random internet images which gave me the 
 
 </table> 
 
-I created 6 Mongol enemies for the player to defeat, but only ended up using 5 of them. I was very pleased with how they turned out.
+I created 6 Mongol enemies for the player to combat, but only ended up using 5 of them. I was very pleased with how they turned out.
 
 <table>
 
