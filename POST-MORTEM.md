@@ -295,7 +295,7 @@ My user interface this year turned out to be one giant &lt;div&gt; and I used HT
 
 For the buttons I just added a 16 pixel wide outline to them when hovered which made them pretty cool as button borders, complete with bloody filter.
 
-I used a liberal amount of &lt;br&gt; tags to provide vertical spacing between interface elements, and when I wanted to show another menu (portion of the whole ui &lt;div&gt;), I just set `style.scrollTop` to the appropriate number.
+I used a liberal amount of &lt;br&gt; tags to provide vertical spacing between interface elements, and when I wanted to show another menu (portion of the whole ui &lt;div&gt;), I just set the ui `style.top` property to the appropriate number to show the desired menu. Magic.
 
 This cheap and nasty approach worked super well and I think I'll refine it and reuse it again next year.
 
