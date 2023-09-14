@@ -17,7 +17,9 @@ As the brave samurai looked out across the field of battle at the endless horde 
 <br>
 
 ### GAMEPLAY:
+
 ---
+
 When you neighbors are mongols is a random as game I made for js13k 2023, where you must do your best to hold back the mongol horde as long as you can.
 
 The samurai will fire his BFG automatically, leaving you to the important tasks of avoiding swords and spears thrown by mongols, as well as collecting powerup cubes to empower him and lay waste to many mongols at once.
