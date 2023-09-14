@@ -38,6 +38,8 @@ After a bit of thinking I came up with the following requirements for the game:
 
 - Ingame music. 
 
+- Robust user interface. 
+
 - Persistent options and highscore. 
 
 - Oceans of blood! 
@@ -298,6 +300,12 @@ I used a liberal amount of &lt;br&gt; tags to provide vertical spacing between i
 This cheap and nasty approach worked super well and I think I'll refine it and reuse it again next year.
 
 One thing that I really liked was using a &lt;div&gt; with set dimensions for the players health indicator. As it grew and shrunk, it looked pretty cool as the bloody filter caused it to have a sort of animated appearance.
+
+<br>
+
+## Persistent options and highscore.
+
+I rehashed my code from SOS, my 2021 js13k game and it worked really well.
 
 <br>
 
