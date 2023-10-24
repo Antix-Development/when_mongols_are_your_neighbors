@@ -184,7 +184,7 @@ I created 6 Mongol enemies for the player to combat, but only ended up using 5 o
   <tr>
     <td>Unarmed</td>
     <td><img src="src/img/post-mortem/unarmed.png"></td>
-    <td>Once a swordsman or spearman have thrown their wespon, they are mutated into an unarmed Mongol. Unarmed mongols do medium damage when they get past the Samurai's defences.</td>
+    <td>Once a swordsman or spearman have thrown their weapons, they are mutated into an unarmed Mongol. Unarmed mongols do medium damage when they get past the Samurai's defences.</td>
   </tr>
 
   <tr>
@@ -196,7 +196,7 @@ I created 6 Mongol enemies for the player to combat, but only ended up using 5 o
 
 I was fairly happy with how the enemy units ended up but still feel that the rammer could have had some special kind of attack.
 
-I was also very pleased with the interactions between Mongols because using circle vs circle collision made them flow nicely, with faster moving Mongols puching their way past slower moving ones.
+I was also very pleased with the interactions between Mongols because using circle vs circle collision made them flow nicely, with faster moving Mongols punching their way past slower moving ones.
 
 <br>
 
